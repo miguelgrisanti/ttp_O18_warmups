@@ -1,0 +1,52 @@
+-- HINTS:
+-- start by getting all PG-13 films
+SELECT * 
+FROM film
+WHERE rating = 'PG-13'
+
+-- find the cheapest rental bracket, the cheapest rental_rate: 0.99
+
+SELECT rental_rate
+FROM film
+ORDER BY rental_rate ASC
+LIMIT 1;
+
+-- find the NEXT HIGHER rental_rate above $1: 2.99
+
+SELECT rental_rate
+FROM film
+WHERE rental_rate > 1
+ORDER BY rental_rate ASC
+LIMIT 1;
+
+-- Go back and make a new column "new_rate", with a CASE WHEN statement to return the 
+-- new price for all PG-13 films.
+-- HINT: try hardcoding first
+-- HINT: Get your code to run with one of the changes to make sure you can get the 
+-- CASE WHEN statement to work, then add the other change.
+
+WITH PG_13 AS (SELECT * 
+FROM film
+WHERE rating = 'PG-13')
+,
+Low_rate AS (SELECT rental_rate
+FROM film
+ORDER BY rental_rate ASC
+LIMIT 1;)
+,
+Above1 AS (SELECT rental_rate
+FROM film
+WHERE rental_rate > 1
+ORDER BY rental_rate ASC
+LIMIT 1;)
+
+SELECT rating, rental_rate
+FROM film
+WHERE rating = (PG_13)
+CASE 
+WHEN (Low_rate) THEN '0.10'
+ELSE '1.00'
+WHEN (Above1) THEN '
+
+-- Do the previous query with softcoding (opposite of hardcoding, ie using a subquery/etc
+-- to find the right rental brackets.)
